@@ -1,30 +1,24 @@
 import 'package:aplicativo/app/models/company.dart';
+import 'package:aplicativo/app/repositories/base_repository.dart';
 import 'package:dio/dio.dart';
 import 'package:flutter_modular/flutter_modular.dart';
 
-class CompanyRepository extends Disposable {
-  final Dio client;
+class CompanyRepository extends BaseRepository {
+  CompanyRepository(
+    Dio client, {
+    String baseUrl = 'http://www.mocky.io/v2/5eac692c3300003941dfe3d8',
+  }) : super(client, baseUrl);
 
-  CompanyRepository(this.client);
-
-  Future<List<Company>> search(String query) async {
-    final response = await client.get<List<Company>>('companies/');
-
-    if (response.statusCode == 200) {
-      return response.data;
-    } else {
-      throw Exception('Não foi possível acessar a api');
-    }
+  Future<List<Company>> all() {
+    return get<List<Company>>('companies/');
   }
 
-  Future<Company> find(double id) async {
-    final response = await client.get<Company>("companies/$id");
+  Future<List<Company>> search(String query) {
+    return get<List<Company>>('companies/', queryParameters: {'q': query});
+  }
 
-    if (response.statusCode == 200) {
-      return response.data;
-    } else {
-      throw Exception('Não foi possível acessar a api');
-    }
+  Future<Company> find(double id) {
+    return get<Company>("companies/$id");
   }
 
   @override

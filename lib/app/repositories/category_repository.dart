@@ -1,30 +1,26 @@
 import 'package:aplicativo/app/models/category.dart';
+import 'package:aplicativo/app/repositories/base_repository.dart';
 import 'package:dio/dio.dart';
-import 'package:flutter_modular/flutter_modular.dart';
 
-class CategoryRepository extends Disposable {
-  final Dio client;
+class CategoryRepository extends BaseRepository {
+  CategoryRepository(
+    Dio client, {
+    String baseUrl = 'http://www.mocky.io/v2/5eac697c330000dc64dfe3db',
+  }) : super(client, baseUrl);
 
-  CategoryRepository(this.client);
-
-  Future<List<Category>> search(String query) async {
-    final response = await client.get<List<Category>>('companies/');
-
-    if (response.statusCode == 200) {
-      return response.data;
-    } else {
-      throw Exception('Não foi possível acessar a api');
-    }
+  Future<List<Category>> all() {
+    return get<List<Category>>('categories/');
   }
 
-  Future<Category> find(double id) async {
-    final response = await client.get<Category>("companies/$id");
+  Future<List<Category>> search(String query) {
+    return get<List<Category>>(
+      'categories/',
+      queryParameters: {'q': query},
+    );
+  }
 
-    if (response.statusCode == 200) {
-      return response.data;
-    } else {
-      throw Exception('Não foi possível acessar a api');
-    }
+  Future<Category> find(double id) {
+    return get<Category>("categories/$id");
   }
 
   @override

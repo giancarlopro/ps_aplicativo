@@ -1,4 +1,5 @@
 class Company {
+  double id;
   String companyName;
   String fantasyName;
   String email;
@@ -6,6 +7,7 @@ class Company {
   String logo;
 
   Company({
+    this.id,
     this.companyName,
     this.fantasyName,
     this.email,
@@ -15,6 +17,7 @@ class Company {
 
   static Company fromJson(Map<String, dynamic> json) {
     return Company(
+      id: json['id'],
       companyName: json['company_name'],
       fantasyName: json['fantasy_name'],
       email: json['email'],

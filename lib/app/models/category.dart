@@ -1,11 +1,17 @@
 class Category {
+  double id;
   String name;
   String image;
 
-  Category({this.name, this.image});
+  Category({
+    this.id,
+    this.name,
+    this.image,
+  });
 
   static Category fromJson(Map<String, dynamic> json) {
     return Category(
+      id: json['id'],
       name: json['name'],
       image: json['image'],
     );

@@ -17,7 +17,7 @@ class Company {
 
   static Company fromJson(Map<String, dynamic> json) {
     return Company(
-      id: json['id'],
+      id: (json['id'] as int).toDouble(),
       companyName: json['company_name'],
       fantasyName: json['fantasy_name'],
       email: json['email'],
@@ -26,7 +26,7 @@ class Company {
     );
   }
 
-  static List<Company> fromJsonArray(List<Map<String, dynamic>> json) {
-    return json.map((j) => fromJson(j));
+  static List<Company> fromJsonArray(List<dynamic> json) {
+    return json.map((j) => fromJson(j)).toList();
   }
 }

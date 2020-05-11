@@ -11,13 +11,13 @@ class Category {
 
   static Category fromJson(Map<String, dynamic> json) {
     return Category(
-      id: json['id'],
+      id: (json['id'] as int).toDouble(),
       name: json['name'],
       image: json['image'],
     );
   }
 
   static List<Category> fromJsonArray(List<Map<String, dynamic>> json) {
-    return json.map((j) => fromJson(j));
+    return json.map((j) => fromJson(j)).toList();
   }
 }

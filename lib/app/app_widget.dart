@@ -8,6 +8,9 @@ class AppWidget extends StatelessWidget {
       title: 'Boonus App',
       initialRoute: '/',
       onGenerateRoute: Modular.generateRoute,
+      theme: ThemeData(
+      	primaryColor: Colors.white
+      ),
     );
   }
 }

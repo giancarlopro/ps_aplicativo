@@ -5,18 +5,18 @@ import 'package:dio/dio.dart';
 class CompanyRepository extends BaseRepository {
   CompanyRepository(
     Dio client, {
-    String baseUrl = 'http://localhost:3000/api/',
+    String baseUrl = 'http://192.168.0.2:3000/api/',
   }) : super(client, baseUrl);
 
   Future<List<Company>> all() async {
-    final response = await get<List<dynamic>>('companies/');
+    final response = await get<List<dynamic>>('companies');
 
     return Company.fromJsonArray(response);
   }
 
   Future<List<Company>> search(String query) async {
     final response = await get<List<dynamic>>(
-      'companies/',
+      'companies',
       queryParameters: {'q': query},
     );
 

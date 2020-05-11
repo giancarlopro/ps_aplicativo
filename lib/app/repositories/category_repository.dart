@@ -5,18 +5,18 @@ import 'package:dio/dio.dart';
 class CategoryRepository extends BaseRepository {
   CategoryRepository(
     Dio client, {
-    String baseUrl = 'http://localhost:3000/api/',
+    String baseUrl = 'http://192.168.0.2:3000/api/',
   }) : super(client, baseUrl);
 
   Future<List<Category>> all() async {
-    final response = await get<List<dynamic>>('categories/');
+    final response = await get<List<dynamic>>('categories');
 
     return Category.fromJsonArray(response);
   }
 
   Future<List<Category>> search(String query) async {
     final response = await get<List<dynamic>>(
-      'categories/',
+      'categories',
       queryParameters: {'q': query},
     );
 

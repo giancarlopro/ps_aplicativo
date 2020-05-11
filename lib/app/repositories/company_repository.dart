@@ -1,24 +1,32 @@
 import 'package:aplicativo/app/models/company.dart';
 import 'package:aplicativo/app/repositories/base_repository.dart';
 import 'package:dio/dio.dart';
-import 'package:flutter_modular/flutter_modular.dart';
 
 class CompanyRepository extends BaseRepository {
   CompanyRepository(
     Dio client, {
-    String baseUrl = 'http://www.mocky.io/v2/5eac692c3300003941dfe3d8',
+    String baseUrl = 'http://localhost:3000/api/',
   }) : super(client, baseUrl);
 
-  Future<List<Company>> all() {
-    return get<List<Company>>('companies/');
+  Future<List<Company>> all() async {
+    final response = await get<List<dynamic>>('companies/');
+
+    return Company.fromJsonArray(response);
   }
 
-  Future<List<Company>> search(String query) {
-    return get<List<Company>>('companies/', queryParameters: {'q': query});
+  Future<List<Company>> search(String query) async {
+    final response = await get<List<dynamic>>(
+      'companies/',
+      queryParameters: {'q': query},
+    );
+
+    return Company.fromJsonArray(response);
   }
 
-  Future<Company> find(double id) {
-    return get<Company>("companies/$id");
+  Future<Company> find(double id) async {
+    final response = await get<Map<String, dynamic>>("companies/$id");
+
+    return Company.fromJson(response);
   }
 
   @override

@@ -17,7 +17,7 @@ class Category {
     );
   }
 
-  static List<Category> fromJsonArray(List<Map<String, dynamic>> json) {
+  static List<Category> fromJsonArray(List<dynamic> json) {
     return json.map((j) => fromJson(j)).toList();
   }
 }
